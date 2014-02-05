@@ -1,0 +1,25 @@
+.call_btn {
+  background-color: #3aa8a4;
+  font: white;
+  text-align: center;
+  font-weight: bold;
+  width: 200px;
+}
+
+.hangup_btn {
+  background-color: #ff5879;
+  font: white;
+  text-align: center;
+  font-weight: bold;
+  width: 200px;
+}
+
+.user_img {
+  width: 100px;
+  height: 100px;
+}
+
+.cell_label {
+  width: 100px;
+}
+

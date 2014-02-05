@@ -1,0 +1,6 @@
+class ReservationList < UITableViewCell
+
+  
+
+
+end

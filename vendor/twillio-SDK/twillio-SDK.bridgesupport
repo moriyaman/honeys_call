@@ -1,0 +1,208 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<constant type='@' name='TCConnectionIncomingParameterAPIVersionKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCConnectionIncomingParameterAccountSIDKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCConnectionIncomingParameterCallSIDKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCConnectionIncomingParameterFromKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCConnectionIncomingParameterToKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityAccountSIDKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityApplicationParametersKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityApplicationSIDKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityClientNameKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityExpirationKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityIncomingKey' const='true' declared_type='NSString*'/>
+<constant type='@' name='TCDeviceCapabilityOutgoingKey' const='true' declared_type='NSString*'/>
+<enum value='2' name='TCConnectionStateConnected'/>
+<enum value='1' name='TCConnectionStateConnecting'/>
+<enum value='3' name='TCConnectionStateDisconnected'/>
+<enum value='0' name='TCConnectionStatePending'/>
+<enum value='2' name='TCDeviceStateBusy'/>
+<enum value='0' name='TCDeviceStateOffline'/>
+<enum value='1' name='TCDeviceStateReady'/>
+<class name='NSObject'>
+<method selector='connection:didFailWithError:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='connectionDidConnect:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='connectionDidDisconnect:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='connectionDidStartConnecting:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='device:didReceiveIncomingConnection:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='connection' index='1' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='device:didReceivePresenceUpdate:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='presenceEvent' index='1' declared_type='TCPresenceEvent*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='device:didStopListeningForIncomingConnections:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='deviceDidStartListeningForIncomingConnections:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</class>
+<class name='TCConnection'>
+<method selector='accept'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='delegate'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='disconnect'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='ignore'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='isIncoming'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='isMuted'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='parameters'>
+<retval type='@' declared_type='NSDictionary*'/>
+</method>
+<method selector='reject'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='sendDigits:'>
+<arg type='@' name='digits' index='0' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDelegate:'>
+<arg type='@' name='delegate' index='0' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setMuted:'>
+<arg type='B' name='muted' index='0' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='state'>
+<retval type='i' declared_type='TCConnectionState'/>
+</method>
+</class>
+<class name='TCDevice'>
+<method selector='capabilities'>
+<retval type='@' declared_type='NSDictionary*'/>
+</method>
+<method selector='connect:delegate:'>
+<arg type='@' name='parameters' index='0' declared_type='NSDictionary*'/>
+<arg type='@' name='delegate' index='1' declared_type='id'/>
+<retval type='@' declared_type='TCConnection*'/>
+</method>
+<method selector='delegate'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='disconnectAll'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='disconnectSoundEnabled'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='incomingSoundEnabled'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='initWithCapabilityToken:delegate:'>
+<arg type='@' name='capabilityToken' index='0' declared_type='NSString*'/>
+<arg type='@' name='delegate' index='1' declared_type='id'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='listen'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='outgoingSoundEnabled'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='setDelegate:'>
+<arg type='@' name='delegate' index='0' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDisconnectSoundEnabled:'>
+<arg type='B' name='disconnectSoundEnabled' index='0' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setIncomingSoundEnabled:'>
+<arg type='B' name='incomingSoundEnabled' index='0' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setOutgoingSoundEnabled:'>
+<arg type='B' name='outgoingSoundEnabled' index='0' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='state'>
+<retval type='i' declared_type='TCDeviceState'/>
+</method>
+<method selector='unlisten'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='updateCapabilityToken:'>
+<arg type='@' name='capabilityToken' index='0' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</class>
+<class name='TCPresenceEvent'>
+<method selector='isAvailable'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='name'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<informal_protocol name='TCConnectionDelegate'>
+<method type='v16@0:4@8@12' selector='connection:didFailWithError:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v12@0:4@8' selector='connectionDidConnect:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v12@0:4@8' selector='connectionDidDisconnect:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v12@0:4@8' selector='connectionDidStartConnecting:'>
+<arg type='@' name='connection' index='0' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</informal_protocol>
+<informal_protocol name='TCDeviceDelegate'>
+<method type='v16@0:4@8@12' selector='device:didReceiveIncomingConnection:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='connection' index='1' declared_type='TCConnection*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v16@0:4@8@12' selector='device:didReceivePresenceUpdate:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='presenceEvent' index='1' declared_type='TCPresenceEvent*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v16@0:4@8@12' selector='device:didStopListeningForIncomingConnections:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type='v12@0:4@8' selector='deviceDidStartListeningForIncomingConnections:'>
+<arg type='@' name='device' index='0' declared_type='TCDevice*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</informal_protocol>
+</signatures>

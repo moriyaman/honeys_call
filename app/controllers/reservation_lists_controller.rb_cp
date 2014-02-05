@@ -1,0 +1,79 @@
+class ReservationListsController < UITableViewController
+  # ビューが読み込まれた後で実行されるメソッド
+  def viewDidLoad
+    super
+    @tag = 'Reciever List'
+    self.title = @tag # ナビゲーションバーのタイトルを変更
+    @reservation_lists = [] # 取得したエントリをこのインスタンス変数に格納
+    Client.fetch_receiver_lists do |reservation_lists,error_message| 
+      if error_message.nil?  
+        @reservation_lists = reservation_lists
+        self.tableView.reloadData # テーブルをリロード
+      else
+       p error_message
+      end
+    end
+  end
+
+  # テーブルの行数を返すメソッド
+  def tableView(tableView, numberOfRowsInSection:section)
+    @reservation_lists.count
+  end
+
+  # テーブルのセルを返すメソッド
+  CELL_ID = 'Reservation Lists'
+  def tableView(tableView, cellForRowAtIndexPath:indexPath)
+    cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID)
+    if cell.nil?
+      cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier:CELL_ID)
+    end
+
+    reservation_list = @reservation_lists[indexPath.row]
+    #ボタンの作成
+    @button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    @button.setTitle("call", forState:UIControlStateNormal)
+    #@button.setTitle("Call now", forState:UIControlStateDisabled)
+    @button.sizeToFit
+    @button.center = CGPointMake(280,20)
+    @button.addTarget(self, action:'call', forControlEvents:UIControlEventTouchUpInside)
+
+    # ラベルをセット
+    cell.textLabel.text = "#{reservation_list.call_date_and_time} #{reservation_list.user_name}"
+    cell.addSubview @button
+    cell
+  end
+
+  def initWithNibName(name, bundle: bundle)
+    super
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle('Receiver Lists', image: nil, tag: 1)
+    self
+  end
+
+  def call_info_set
+    url = NSURL.URLWithString("http://49.212.87.13:3006/mobile/apis/token")
+    response_ptr = Pointer.new(:object)
+    error_ptr = Pointer.new(:object)
+    req = NSURLRequest.requestWithURL(url)
+    data = NSURLConnection.sendSynchronousRequest(req, returningResponse: response_ptr, error: error_ptr)
+    if data
+      httpResponse = response_ptr[0]
+      if httpResponse.statusCode == 200
+        capabilityToken = NSString.alloc.initWithData(data, encoding: NSUTF8StringEncoding)
+        @device = TCDevice.alloc.initWithCapabilityToken(capabilityToken,delegate:nil)
+      else
+        errorString = NSString.stringWithFormat("HTTP status code %d",  httpResponse.statusCode)
+        NSLog("Error logging in: %@", errorString)
+      end
+    else
+      NSLog("Error logging in: %@", error.localizedDescription)
+    end
+    return self
+  end
+
+  def call
+    call_info_set
+     hash = {}
+    _connection = @device.connect({"PhoneNumber" => "+819058932761"}, delegate:nil)
+    _connection.retain
+  end
+end
